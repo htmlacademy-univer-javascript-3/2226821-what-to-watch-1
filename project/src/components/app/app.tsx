@@ -1,4 +1,4 @@
-import MainPage, {MainPageProps} from '../../pages/main_page_component/main_page_component';
+import MainPage, {MainPageProps} from '../../pages/main_page/main_page';
 
 const App = (props: MainPageProps): JSX.Element => <MainPage {... props}/>;
 
