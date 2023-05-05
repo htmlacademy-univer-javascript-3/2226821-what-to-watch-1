@@ -7,6 +7,8 @@ import MyList from '../../pages/my_list/my_list';
 import Player from '../../pages/player/player';
 import SignIn from '../../pages/sign_in/sign_in';
 import NotFound404 from '../../pages/404_not_found/404_not_found';
+import PrivateRoute from '../private_route/private_route';
+import AuthStatus from '../../utils';
 
 const enum Paths {
     NotFoundPath = '*',
@@ -21,34 +23,18 @@ const enum Paths {
 const App = (props: MainPageProps): JSX.Element => (
   <BrowserRouter>
     <Routes>
-      <Route>
-                path={Paths.NotFoundPath}
-                element={<NotFound404/>}
-      </Route>
-      <Route>
-                path={Paths.AddReviewPath}
-                element={<AddReview/>}
-      </Route>
-      <Route>
-                path={Paths.FilmPath}
-                element={<Film/>}
-      </Route>
-      <Route>
-                path={Paths.MainPagePath}
-                element={<MainPage {...props}/>}
-      </Route>
-      <Route>
-                path={Paths.MyListPath}
-                element={<MyList/>}
-      </Route>
-      <Route>
-                path={Paths.PlayerPath}
-                element={<Player/>}
-      </Route>
-      <Route>
-                path={Paths.LoginPath}
-                element={<SignIn/>}
-      </Route>
+    <Route path={Paths.AddReviewPath} element={<AddReview/>} />
+      <Route path={Paths.FilmPath} element={<Film/>} />
+      <Route path={Paths.MainPagePath} element={<MainPage {...props}/>} />
+      <Route path={Paths.MyListPath} element={
+        <PrivateRoute authStatus={AuthStatus.NoAuth}>
+          <MyList/>
+        </PrivateRoute>
+      }
+      />
+      <Route path={Paths.NotFoundPath} element={<NotFound404/>} />
+      <Route path={Paths.PlayerPath} element={<Player/>} />
+      <Route path={Paths.LoginPath} element={<SignIn/>} />
     </Routes>
   </BrowserRouter>
 );
