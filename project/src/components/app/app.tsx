@@ -1,42 +1,58 @@
-import AddReview from '../../pages/add_review/add_review';
-import Film from '../../pages/film/film';
-import MainPage from '../../pages/main_page/main_page';
-import {MainPageProps} from '../../pages/main_page/main_page';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import MyList from '../../pages/my_list/my_list';
-import Player from '../../pages/player/player';
-import SignIn from '../../pages/sign_in/sign_in';
-import NotFound404 from '../../pages/404_not_found/404_not_found';
-import PrivateRoute from '../private_route/private_route';
-import AuthStatus from '../../utils';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
-const enum Paths {
-    NotFoundPath = '*',
-    AddReviewPath = '/films/:id/review',
-    FilmPath = '/films/:id',
-    MainPagePath = '/',
-    MyListPath = '/mylist',
-    PlayerPath = '/player/:id',
-    LoginPath = '/login'
-}
+import FilmType from '../../types/film-type';
+import {AppRoute, AuthorizationStatus} from '../../const';
 
-const App = (props: MainPageProps): JSX.Element => (
+import { PrivateRoute } from '../private_route/private_route';
+import { MainPage } from '../../pages/main-page/main-page';
+import { Film } from '../../pages/film/film';
+import { AddReview } from '../../pages/add-review/add-review';
+import { MyList } from '../../pages/my-list/my-list';
+import { Player } from '../../pages/player/player';
+import { SignIn } from '../../pages/sign-in/sign-in';
+import { NotFound } from '../../pages/not-found/not-found';
+
+type AppProps = {
+  films: FilmType[];
+};
+
+export const App = (props: AppProps): JSX.Element => (
   <BrowserRouter>
     <Routes>
-    <Route path={Paths.AddReviewPath} element={<AddReview/>} />
-      <Route path={Paths.FilmPath} element={<Film/>} />
-      <Route path={Paths.MainPagePath} element={<MainPage {...props}/>} />
-      <Route path={Paths.MyListPath} element={
-        <PrivateRoute authStatus={AuthStatus.NoAuth}>
-          <MyList/>
-        </PrivateRoute>
-      }
+      <Route
+        path={AppRoute.NotFound}
+        element={<NotFound />}
       />
-      <Route path={Paths.NotFoundPath} element={<NotFound404/>} />
-      <Route path={Paths.PlayerPath} element={<Player/>} />
-      <Route path={Paths.LoginPath} element={<SignIn/>} />
+      <Route
+        path={AppRoute.MainPage}
+        element={<MainPage films={props.films} />}
+      />
+      <Route
+        path={AppRoute.AddReview}
+        element={<AddReview films={props.films} />}
+      />
+      <Route
+        path={AppRoute.Film}
+        element={<Film films={props.films}/>}
+      />
+      <Route
+        path={AppRoute.MyList}
+        element={
+          <PrivateRoute
+            authorizationStatus={AuthorizationStatus.NoAuth}
+          >
+            <MyList films={props.films} />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={AppRoute.Player}
+        element={<Player films={props.films}/>}
+      />
+      <Route
+        path={AppRoute.SignIn}
+        element={<SignIn />}
+      />
     </Routes>
   </BrowserRouter>
 );
-
-export default App;
