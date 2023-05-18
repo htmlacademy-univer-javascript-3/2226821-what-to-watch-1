@@ -1,13 +1,13 @@
-import OneFilmCard from '../../components/one_film_card/one_film_card';
+import {FilmList} from '../../components';
+import FilmType from '../../types/film-type';
+import {Link} from 'react-router-dom';
 
 type MainPageProps = {
-    filmName: string;
-    filmGenre: string;
-    filmReleaseYear: number;
-}
+  films: FilmType[];
+};
 
-const MainPage = (props: MainPageProps): JSX.Element => (
-  <body>
+export const MainPage = (props: MainPageProps): JSX.Element => (
+  <>
     <div className="visually-hidden">
       <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
         <symbol id="add" viewBox="0 0 19 20">
@@ -42,7 +42,7 @@ const MainPage = (props: MainPageProps): JSX.Element => (
 
     <section className="film-card">
       <div className="film-card__bg">
-        <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+        <img src={props.films[0].backgroundImage} alt={props.films[0].name} />
       </div>
 
       <h1 className="visually-hidden">WTW</h1>
@@ -71,23 +71,23 @@ const MainPage = (props: MainPageProps): JSX.Element => (
       <div className="film-card__wrap">
         <div className="film-card__info">
           <div className="film-card__poster">
-            <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+            <img src={props.films[0].posterImage} alt={`${props.films[0].name} poster`} width="218" height="327" />
           </div>
 
           <div className="film-card__desc">
-            <h2 className="film-card__title">{props.filmName}</h2>
+            <h2 className="film-card__title">{props.films[0].name}</h2>
             <p className="film-card__meta">
-              <span className="film-card__genre">{props.filmGenre}</span>
-              <span className="film-card__year">{props.filmReleaseYear}</span>
+              <span className="film-card__genre">{props.films[0].genre}</span>
+              <span className="film-card__year">{props.films[0].released}</span>
             </p>
 
             <div className="film-card__buttons">
-              <button className="btn btn--play film-card__button" type="button">
+              <Link to={`/player/${props.films[0].id}`} className="btn btn--play film-card__button">
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
                 <span>Play</span>
-              </button>
+              </Link>
               <button className="btn btn--list film-card__button" type="button">
                 <svg viewBox="0 0 19 20" width="19" height="20">
                   <use xlinkHref="#add"></use>
@@ -139,26 +139,7 @@ const MainPage = (props: MainPageProps): JSX.Element => (
         </ul>
 
         <div className="catalog__films-list">
-          <OneFilmCard imgSrc="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" imgAlt="Fantastic Beasts: The Crimes of Grindelwald" filmName="Fantastic Beasts: The Crimes of Grindelwald" />
-          <OneFilmCard imgSrc="img/bohemian-rhapsody.jpg" imgAlt="Bohemian Rhapsody" filmName="Bohemian Rhapsody"/>
-          <OneFilmCard imgSrc="img/macbeth.jpg" imgAlt="Macbeth" filmName="Macbeth" />
-          <OneFilmCard imgSrc="img/aviator.jpg" imgAlt="Aviator" filmName="Aviator" />
-          <OneFilmCard imgSrc="img/we-need-to-talk-about-kevin.jpg" imgAlt="We need to talk about Kevin" filmName="We need to talk about Kevin" />
-          <OneFilmCard imgSrc="img/what-we-do-in-the-shadows.jpg" imgAlt="What We Do in the Shadows" filmName="What We Do in the Shadows" />
-          <OneFilmCard imgSrc="img/revenant.jpg" imgAlt="Revenant" filmName="Revenant" />
-          <OneFilmCard imgSrc="img/johnny-english.jpg" imgAlt="Johnny English" filmName="Johnny English" />
-          <OneFilmCard imgSrc="img/shutter-island.jpg" imgAlt="Shutter Island" filmName="Shutter Island" />
-          <OneFilmCard imgSrc="img/pulp-fiction.jpg" imgAlt="Pulp Fiction" filmName="Pulp Fiction" />
-          <OneFilmCard imgSrc="img/no-country-for-old-men.jpg" imgAlt="No Country for Old Men" filmName="No Country for Old Men" />
-          <OneFilmCard imgSrc="img/snatch.jpg" imgAlt="Snatch" filmName="Snatch" />
-          <OneFilmCard imgSrc="img/moonrise-kingdom.jpg" imgAlt="Moonrise Kingdom" filmName="Moonrise Kingdom" />
-          <OneFilmCard imgSrc="img/seven-years-in-tibet.jpg" imgAlt="Seven Years in Tibet" filmName="Seven Years in Tibet" />
-          <OneFilmCard imgSrc="img/midnight-special.jpg" imgAlt="Midnight Special" filmName="Midnight Special" />
-          <OneFilmCard imgSrc="img/war-of-the-worlds.jpg" imgAlt="War of the Worlds" filmName="War of the Worlds" />
-          <OneFilmCard imgSrc="img/dardjeeling-limited.jpg" imgAlt="Dardjeeling Limited" filmName="Dardjeeling Limited" />
-          <OneFilmCard imgSrc="img/orlando.jpg" imgAlt="Orlando" filmName="Orlando" />
-          <OneFilmCard imgSrc="img/mindhunter.jpg" imgAlt="Mindhunter" filmName="Mindhunter" />
-          <OneFilmCard imgSrc="img/midnight-special.jpg" imgAlt="Midnight Special" filmName="Midnight Special" />
+          <FilmList films={props.films} />
         </div>
 
         <div className="catalog__more">
@@ -176,12 +157,9 @@ const MainPage = (props: MainPageProps): JSX.Element => (
         </div>
 
         <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
+          <p>© 2023 What to watch Ltd.</p>
         </div>
       </footer>
     </div>
-  </body>
+  </>
 );
-
-export default MainPage;
-export type {MainPageProps};
