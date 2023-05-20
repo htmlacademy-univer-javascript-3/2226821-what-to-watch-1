@@ -1,3 +1,4 @@
+export { VideoPlayer } from './video-player/video-player';
 export { PrivateRoute } from './private_route/private_route';
 export {App} from './app/app';
 export {FilmCard} from './film-card/film-card';
