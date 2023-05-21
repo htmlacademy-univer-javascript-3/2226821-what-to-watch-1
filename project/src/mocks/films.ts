@@ -21,7 +21,7 @@ export const FILMS: FilmType[] = [
     released: 2000,
     id: 1,
     isFavorite: false,
-    videoLink: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
+    videoLink: 'https://10.react.pages.academy/static/film/video/dog.mp4',
     previewVideoLink: 'https://10.react.pages.academy/static/film/video/dog.mp4'
   },
   {

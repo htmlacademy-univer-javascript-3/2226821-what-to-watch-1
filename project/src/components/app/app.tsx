@@ -2,7 +2,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import FilmType from '../../types/film-type';
 import {AppRoute, AuthorizationStatus} from '../../const';
-
+import ReviewType from '../../types/review-type';
 import { PrivateRoute } from '../private_route/private_route';
 import { MainPage } from '../../pages/main-page/main-page';
 import { Film } from '../../pages/film/film';
@@ -12,8 +12,10 @@ import { Player } from '../../pages/player/player';
 import { SignIn } from '../../pages/sign-in/sign-in';
 import { NotFound } from '../../pages/not-found/not-found';
 
+
 type AppProps = {
   films: FilmType[];
+  reviews: ReviewType[];
 };
 
 export const App = (props: AppProps): JSX.Element => (
@@ -33,7 +35,7 @@ export const App = (props: AppProps): JSX.Element => (
       />
       <Route
         path={AppRoute.Film}
-        element={<Film films={props.films}/>}
+        element={<Film films={props.films} reviews = {props.reviews}/>}
       />
       <Route
         path={AppRoute.MyList}
