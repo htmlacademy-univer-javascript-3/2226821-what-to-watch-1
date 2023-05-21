@@ -12,3 +12,14 @@ export const ratingToScore = (rating: number): string => {
       return 'Awesome';
   }
 };
+
+export const getFullDate = (dateString: string): string => {
+  const date = new Date(dateString);
+  return `${date.toLocaleString('en-US', {month: 'long'})} ${date.getDate()}, ${date.getFullYear()}`;
+};
+
+export const timestampToStr = (time: number): string => {
+  const hours = Math.round(time / 60);
+  const minutes = time % 60;
+  return `${hours} hours ${minutes} minutes`;
+};
